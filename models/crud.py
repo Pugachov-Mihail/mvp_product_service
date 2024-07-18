@@ -8,9 +8,9 @@ def create_product(db: Session, product: prod.ProductShem):
     db.add(cp)
     db.commit()
     db.refresh(cp)
-    create_count(db, product, cp.id)
-    create_cost(db, product, cp.id)
-    return cp
+    ccount = create_count(db, product, cp.id)
+    cc = create_cost(db, product, cp.id)
+    return {"id": cp.id, "name": cp.name, "count": ccount.count, "cost": cc.cost }
 
 
 def create_count(db: Session, count: prod.ProductShem, id: int):
@@ -30,9 +30,9 @@ def create_cost(db: Session, count: prod.ProductShem, id: int):
 
 
 def get_product(db: Session, id_prod: int):
-    product = db.query(Product).filter(id==id_prod).first()
-    cost = db.query(Cost).filter(id==product.id).first()
-    count = db.query(Count).filter(id==product.id).first()
-    return product, cost, count
+    product = db.query(Product).filter(Product.id==id_prod).first()
+    cost = db.query(Cost).filter(Cost.id==product.id).first()
+    count = db.query(Count).filter(Count.id==product.id).first()
+    return {"product":  {product.id: product, "cost": cost, "count": count}}
 
 

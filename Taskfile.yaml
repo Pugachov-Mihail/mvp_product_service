@@ -1,0 +1,8 @@
+version: '3'
+
+tasks:
+  run:
+    cmd: uvicorn main:app --reload
+#    netstat -ano | findstr 8000
+#    taskkill /pid 11704 /F
+

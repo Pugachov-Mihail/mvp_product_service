@@ -1,4 +1,6 @@
 import datetime
+from typing import Any
+from typing_extensions import Self
 
 from pydantic import BaseModel
 
@@ -20,4 +22,3 @@ class ProductShem(BaseModel):
     mdate: datetime.datetime
     count: Count
     cost: Cost
-
