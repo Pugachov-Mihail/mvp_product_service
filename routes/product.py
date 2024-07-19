@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 
 from shemas import product as prod_shem
 from config.config import get_db
-from models import product as model
 from models import crud
 
 product_service = APIRouter()

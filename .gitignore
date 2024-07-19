@@ -3,3 +3,4 @@
 *.db
 alembic.ini
 migrations
+pytest.ini

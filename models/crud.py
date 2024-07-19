@@ -1,16 +1,25 @@
+from fastapi import HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from shemas import product as prod
 from models.product import Product, Count, Cost
 
 
 def create_product(db: Session, product: prod.ProductShem):
-    cp = Product(name=product.name)
-    db.add(cp)
-    db.commit()
-    db.refresh(cp)
-    ccount = create_count(db, product, cp.id)
-    cc = create_cost(db, product, cp.id)
-    return {"id": cp.id, "name": cp.name, "count": ccount.count, "cost": cc.cost }
+    try:
+        cp = Product(name=product.name)
+        db.add(cp)
+        db.commit()
+        db.refresh(cp)
+        ccount = create_count(db, product, cp.id)
+        cc = create_cost(db, product, cp.id)
+        return {"id": cp.id, "name": cp.name, "count": ccount.count, "cost": cc.cost}
+    except IntegrityError:
+        raise HTTPException(
+            status_code=400,
+            detail="Такой товар уже есть"
+        )
+
 
 
 def create_count(db: Session, count: prod.ProductShem, id: int):

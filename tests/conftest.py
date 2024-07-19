@@ -10,7 +10,7 @@ from models.product import Base
 
 @pytest.fixture()
 def create_connect():
-    engine_test = create_engine("sqlite:///./test.db",
+    engine_test = create_engine("sqlite:///../test.db",
                                 connect_args={"check_same_thread": False},
                                 poolclass=StaticPool,
                                 )
