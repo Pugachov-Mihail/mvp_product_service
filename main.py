@@ -8,4 +8,4 @@ App.include_router(router=product.product_service,
 
 
 if __name__ == '__main__':
-    uvicorn.run(App, host='127.0.0.1', port=8001)
+    uvicorn.run(App, host='127.0.0.1', port=8002)

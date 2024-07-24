@@ -13,9 +13,10 @@ def get_current_product(id_product: int, db: Session = Depends(get_db)):
     return crud.get_product(id_prod=id_product, db=db)
 
 
-@product_service.post("/create_product")
+@product_service.post("/create_product", response_model=prod_shem.ProductShem)
 def create_product(product: prod_shem.ProductShem, db: Session = Depends(get_db)):
-    return crud.create_product(db, product)
+    prod = crud.create_product(db, product)
+    return prod
 
 
 @product_service.patch("/update_product")

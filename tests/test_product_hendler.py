@@ -6,16 +6,11 @@ import pytest
                              ({
                                   "id": 0,
                                   "name": "string2",
-                                  "mdate": "2024-07-18T21:25:10.403Z",
                                   "count": {
-                                      "id": 0,
                                       "count": 0,
-                                      "mdate": "2024-07-18T21:25:10.403Z"
                                   },
                                   "cost": {
-                                      "id": 0,
                                       "cost": 0,
-                                      "mdate": "2024-07-18T21:25:10.403Z"
                                   }
                               },
                               200,
@@ -25,16 +20,11 @@ import pytest
                                      {
                                          "id": 0,
                                          "name": "шлюпка",
-                                         "mdate": "2024-07-18T21:25:10.403Z",
                                          "count": {
-                                             "id": 0,
                                              "count": 12,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
                                          },
                                          "cost": {
-                                             "id": 0,
                                              "cost": 21,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
                                          }
                                      },
                                      200,
@@ -45,16 +35,11 @@ import pytest
                                      {
                                          "id": 0,
                                          "name": "трусы",
-                                         "mdate": "2024-07-18T21:25:10.403Z",
                                          "count": {
-                                             "id": 0,
                                              "count": 212,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
                                          },
                                          "cost": {
-                                             "id": 0,
                                              "cost": 0,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
                                          }
                                      },
                                      200,
@@ -65,16 +50,11 @@ import pytest
                                      {
                                          "id": 0,
                                          "name": "трусы",
-                                         "mdate": "2024-07-18T21:25:10.403Z",
                                          "count": {
-                                             "id": 0,
-                                             "count": 12,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
+                                             "count": 12
                                          },
                                          "cost": {
-                                             "id": 0,
-                                             "cost": 21,
-                                             "mdate": "2024-07-18T21:25:10.403Z"
+                                             "cost": 21
                                          }
                                      },
                                      200,
@@ -88,3 +68,25 @@ def test_create_product_func(client, product, status, result):
     )
     assert response.status_code == status
     assert response.json() == result
+
+
+@pytest.mark.parametrize("id_product, res",
+             [
+                 (1,
+                  {
+                      "product": {
+                          "1": "string",
+                          "cost": 1,
+                          "count": 2
+                      }
+                  }
+                  )
+             ])
+def test_get_product(client, id_product, res):
+    response = client.get(
+        f'/get_product/{id_product}',
+    )
+
+    print(response.json())
+
+    assert response.status_code == 200

@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, StaticPool
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
-from app import main
+import main
 from routes.product import get_db, product_service
 from models.product import Base
 
